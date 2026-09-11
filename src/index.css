@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --paper: #f4ede0;
+  --navy: #101f3c;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-navy text-ivory font-sans antialiased;
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+  }
+  /* Lenis */
+  html.lenis {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  ::selection {
+    background: #b79a63;
+    color: #0a142a;
+  }
+  :focus-visible {
+    outline: 2px solid #b79a63;
+    outline-offset: 3px;
+  }
+  button,
+  a {
+    touch-action: manipulation;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-serif font-light;
+  }
+}
+
+@layer components {
+  /* small tracked labels used across the invitation */
+  .label {
+    @apply font-sans text-[10px] uppercase tracking-label sm:text-[11px];
+  }
+
+  /* ivory paper with fibre grain */
+  .paper {
+    background-color: var(--paper);
+    background-image:
+      radial-gradient(circle at 18% 12%, rgba(183, 154, 99, 0.13), transparent 55%),
+      radial-gradient(circle at 82% 88%, rgba(16, 31, 60, 0.08), transparent 60%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.22'/%3E%3C/svg%3E");
+    color: #14213d;
+  }
+
+  .navy-grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  }
+
+  /* scalloped ticket edge, cut into the top and bottom of a paper card */
+  .scallop-y {
+    --s: 9px;
+    -webkit-mask:
+      radial-gradient(var(--s) at 50% var(--s), #0000 98%, #000) 0 0 / calc(2 * var(--s))
+        var(--s) repeat-x,
+      radial-gradient(var(--s) at 50% calc(100% - var(--s)), #0000 98%, #000) 0 100% /
+        calc(2 * var(--s)) var(--s) repeat-x,
+      linear-gradient(#000, #000) 0 var(--s) / 100% calc(100% - 2 * var(--s)) no-repeat;
+    mask:
+      radial-gradient(var(--s) at 50% var(--s), #0000 98%, #000) 0 0 / calc(2 * var(--s))
+        var(--s) repeat-x,
+      radial-gradient(var(--s) at 50% calc(100% - var(--s)), #0000 98%, #000) 0 100% /
+        calc(2 * var(--s)) var(--s) repeat-x,
+      linear-gradient(#000, #000) 0 var(--s) / 100% calc(100% - 2 * var(--s)) no-repeat;
+  }
+
+  .dotted-line {
+    background-image: linear-gradient(to right, currentColor 42%, transparent 0%);
+    background-size: 7px 1px;
+    background-repeat: repeat-x;
+  }
+
+  .hairline {
+    @apply border border-navy/20;
+  }
+
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .link-underline:hover {
+    background-size: 100% 1px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

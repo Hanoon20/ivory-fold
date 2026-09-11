@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f4e5dd">
+<title>Wedding Invitation</title>
+<meta name="description" content="A digital wedding invitation.">
+
+<!-- Open Graph: this is the preview card people see in WhatsApp -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Wedding Invitation">
+<meta property="og:description" content="You are warmly invited.">
+<meta property="og:image" content="assets/images/share-preview.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&amp;family=Parisienne&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<script>document.documentElement.classList.add("js");document.body.classList.add("is-locked");</script>
+
+<!-- =========================================================================
+     FLORAL SPRITE — every ornament on the page is drawn from here.
+     To use your own art, replace the path data inside #spray / #sprig / #rule.
+     ====================================================================== -->
+<svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+
+    <!-- building blocks -->
+    <path id="petal" d="M0,-2 C15,-7 21,-23 9,-37 C5,-42 -5,-42 -9,-37 C-21,-23 -15,-7 0,-2 Z"/>
+
+    <g id="leaf">
+      <path d="M0,0 C9,-11 12,-27 0,-43 C-12,-27 -9,-11 0,0 Z"/>
+      <path d="M0,-3 L0,-39" fill="none"/>
+      <path d="M0,-12 L6,-19 M0,-20 L6,-27 M0,-12 L-6,-19 M0,-20 L-6,-27" fill="none"/>
+    </g>
+
+    <g id="bud">
+      <path d="M0,0 C8,-8 9,-22 0,-30 C-9,-22 -8,-8 0,0 Z"/>
+      <path d="M0,-1 C5,-9 5,-20 0,-27" fill="none"/>
+      <path d="M0,0 C6,3 9,9 8,14 M0,0 C-6,3 -9,9 -8,14" fill="none"/>
+    </g>
+
+    <!-- a full bloom: four rings of petals, slightly irregular so it reads natural -->
+    <g id="rose">
+      <g transform="rotate(0) scale(1)">
+        <use href="#petal" transform="rotate(-0.7) scale(1.01)"/>
+        <use href="#petal" transform="rotate(41.9) scale(0.99)"/>
+        <use href="#petal" transform="rotate(72.1) scale(1.02)"/>
+        <use href="#petal" transform="rotate(103.6) scale(1.00)"/>
+        <use href="#petal" transform="rotate(145.8) scale(1.05)"/>
+        <use href="#petal" transform="rotate(174.3) scale(0.96)"/>
+        <use href="#petal" transform="rotate(210.3) scale(1.06)"/>
+        <use href="#petal" transform="rotate(254.7) scale(0.92)"/>
+        <use href="#petal" transform="rotate(294.8) scale(1.08)"/>
+        <use href="#petal" transform="rotate(326.2) scale(1.02)"/>
+      </g>
+      <g transform="rotate(20) scale(0.74)">
+        <use href="#petal" transform="rotate(-4.8) scale(0.91)"/>
+        <use href="#petal" transform="rotate(45.4) scale(0.92)"/>
+        <use href="#petal" transform="rotate(85.7) scale(0.95)"/>
+        <use href="#petal" transform="rotate(128.4) scale(0.99)"/>
+        <use href="#petal" transform="rotate(179.2) scale(1.06)"/>
+        <use href="#petal" transform="rotate(225.3) scale(1.03)"/>
+        <use href="#petal" transform="rotate(270.0) scale(1.03)"/>
+        <use href="#petal" transform="rotate(314.4) scale(0.96)"/>
+      </g>
+      <g transform="rotate(-13) scale(0.5)">
+        <use href="#petal" transform="rotate(7.0) scale(1.09)"/>
+        <use href="#petal" transform="rotate(64.8) scale(1.04)"/>
+        <use href="#petal" transform="rotate(117.4) scale(0.95)"/>
+        <use href="#petal" transform="rotate(177.0) scale(0.92)"/>
+        <use href="#petal" transform="rotate(243.7) scale(0.98)"/>
+        <use href="#petal" transform="rotate(304.9) scale(0.98)"/>
+      </g>
+      <g transform="rotate(33) scale(0.28)">
+        <use href="#petal" transform="rotate(6.4) scale(1.06)"/>
+        <use href="#petal" transform="rotate(83.0) scale(0.95)"/>
+        <use href="#petal" transform="rotate(185.7) scale(0.99)"/>
+        <use href="#petal" transform="rotate(276.7) scale(0.98)"/>
+      </g>
+      <circle r="2.6"/>
+    </g>
+
+    <!-- corner spray: stems, with leaves and blooms grown along them (260 x 360) -->
+    <g id="spray">
+      <g class="stems" fill="none">
+        <path d="M16,14 C74,40 120,74 152,118"/>
+        <path d="M152,118 C184,160 198,216 188,272"/>
+        <path d="M22,116 C64,146 94,192 106,244"/>
+        <path d="M106,244 C114,282 112,314 98,346"/>
+        <path d="M152,118 C124,150 100,192 90,238"/>
+        <path d="M16,14 C56,66 64,120 56,176"/>
+      </g>
+      <g class="leaves">
+        <use href="#leaf" transform="translate(64.9,39.6) rotate(-116.5) scale(0.95)"/>
+        <use href="#leaf" transform="translate(100.5,64.5) rotate(0.7) scale(0.85)"/>
+        <use href="#leaf" transform="translate(131.1,92.8) rotate(-89.1) scale(0.8)"/>
+        <use href="#leaf" transform="translate(172.5,151.9) rotate(32.8) scale(0.9)"/>
+        <use href="#leaf" transform="translate(187.5,197.7) rotate(-63.1) scale(0.8)"/>
+        <use href="#leaf" transform="translate(191.1,241.8) rotate(47.6) scale(0.72)"/>
+        <use href="#leaf" transform="translate(56.4,147.0) rotate(-97.5) scale(0.88)"/>
+        <use href="#leaf" transform="translate(84.9,187.9) rotate(21.7) scale(0.78)"/>
+        <use href="#leaf" transform="translate(110.6,282.0) rotate(-51.3) scale(0.74)"/>
+        <use href="#leaf" transform="translate(107.4,317.0) rotate(56.1) scale(0.66)"/>
+        <use href="#leaf" transform="translate(121.0,160.8) rotate(84.7) scale(0.8)"/>
+        <use href="#leaf" transform="translate(100.0,204.3) rotate(-27.4) scale(0.7)"/>
+        <use href="#leaf" transform="translate(46.9,69.3) rotate(-80.1) scale(0.78)"/>
+        <use href="#leaf" transform="translate(58.6,129.4) rotate(53.7) scale(0.68)"/>
+      </g>
+      <g class="buds">
+        <use href="#bud" transform="translate(188.6,268.6) rotate(9.2) scale(0.85)"/>
+        <use href="#bud" transform="translate(98.8,344.1) rotate(22.9) scale(0.8)"/>
+        <use href="#bud" transform="translate(56.5,172.6) rotate(7.5) scale(0.72)"/>
+        <use href="#bud" transform="translate(40.1,130.5) rotate(-47.9) scale(0.62)"/>
+        <use href="#bud" transform="translate(91.6,231.1) rotate(14.0) scale(0.6)"/>
+      </g>
+      <g class="blooms">
+        <use href="#rose" transform="translate(84,100) scale(1.18) rotate(6)"/>
+        <use href="#rose" transform="translate(178,190) scale(0.82) rotate(-16)"/>
+        <use href="#rose" transform="translate(70,292) scale(0.7) rotate(22)"/>
+        <use href="#rose" transform="translate(206,300) scale(0.5) rotate(40)"/>
+        <use href="#rose" transform="translate(30,52) scale(0.46) rotate(-30)"/>
+        <use href="#rose" transform="translate(136,252) scale(0.44) rotate(12)"/>
+      </g>
+    </g>
+
+    <!-- small upright sprig for the medallion -->
+    <g id="sprig">
+      <path d="M0,46 L0,-24" fill="none"/>
+      <use href="#leaf" transform="translate(0,-22) scale(0.42)"/>
+      <use href="#leaf" transform="translate(-2,10) rotate(-48) scale(0.46)"/>
+      <use href="#leaf" transform="translate(2,10) rotate(48) scale(0.46)"/>
+      <use href="#leaf" transform="translate(-2,30) rotate(-60) scale(0.38)"/>
+      <use href="#leaf" transform="translate(2,30) rotate(60) scale(0.38)"/>
+      <use href="#bud" transform="translate(-10,-2) rotate(-32) scale(0.32)"/>
+      <use href="#bud" transform="translate(10,-2) rotate(32) scale(0.32)"/>
+      <use href="#rose" transform="translate(0,0) scale(0.3)"/>
+    </g>
+
+    <!-- thin ornamental divider (200 x 26) -->
+    <g id="rule">
+      <path d="M4,12 L74,12 M126,12 L196,12" fill="none"/>
+      <use href="#leaf" transform="translate(86,24) rotate(-64) scale(0.3)"/>
+      <use href="#leaf" transform="translate(114,24) rotate(64) scale(0.3)"/>
+      <use href="#rose" transform="translate(100,12) scale(0.26)"/>
+    </g>
+
+    <!-- embossed versions: shadow copy, highlight copy, face copy -->
+    <g id="spray-emb">
+      <use href="#spray" transform="translate(0,1.5)" style="fill:var(--emb-shade,#b4897a);stroke:var(--emb-shade,#b4897a)" fill-opacity=".12" stroke-width=".8" opacity=".5" stroke-linecap="round" stroke-linejoin="round"/>
+      <use href="#spray" transform="translate(0,-1.5)" style="fill:var(--emb-light,#fffaf7);stroke:var(--emb-light,#fffaf7)" fill-opacity=".16" stroke-width=".8" opacity=".95" stroke-linecap="round" stroke-linejoin="round"/>
+      <use href="#spray" style="fill:var(--emb-face,#f0dcd2);stroke:var(--emb-line,#e8d2c7)" fill-opacity=".62" stroke-width=".7" opacity=".9" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <g id="sprig-emb">
+      <use href="#sprig" transform="translate(0,1.5)" style="fill:var(--emb-shade,#b4897a);stroke:var(--emb-shade,#b4897a)" fill-opacity=".12" stroke-width=".8" opacity=".5" stroke-linecap="round" stroke-linejoin="round"/>
+      <use href="#sprig" transform="translate(0,-1.5)" style="fill:var(--emb-light,#fffaf7);stroke:var(--emb-light,#fffaf7)" fill-opacity=".16" stroke-width=".8" opacity=".95" stroke-linecap="round" stroke-linejoin="round"/>
+      <use href="#sprig" style="fill:var(--emb-face,#f0dcd2);stroke:var(--emb-line,#e8d2c7)" fill-opacity=".62" stroke-width=".7" opacity=".9" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <g id="rule-emb">
+      <use href="#rule" transform="translate(0,1.5)" style="fill:var(--emb-shade,#b4897a);stroke:var(--emb-shade,#b4897a)" fill-opacity=".12" stroke-width=".8" opacity=".5" stroke-linecap="round" stroke-linejoin="round"/>
+      <use href="#rule" transform="translate(0,-1.5)" style="fill:var(--emb-light,#fffaf7);stroke:var(--emb-light,#fffaf7)" fill-opacity=".16" stroke-width=".8" opacity=".95" stroke-linecap="round" stroke-linejoin="round"/>
+      <use href="#rule" style="fill:var(--emb-face,#f0dcd2);stroke:var(--emb-line,#e8d2c7)" fill-opacity=".62" stroke-width=".7" opacity=".9" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+  </defs>
+</svg>
+
+<!-- =========================================================================
+     THE CLOSED CARD
+     ====================================================================== -->
+<div class="cover" id="cover">
+  <div class="cover__card">
+
+    <div class="panel panel--left" aria-hidden="true">
+      <div class="panel__face">
+        <svg class="panel__spray panel__spray--top" viewBox="0 0 260 360" aria-hidden="true"><use href="#spray-emb"/></svg>
+        <svg class="panel__spray panel__spray--mid" viewBox="0 0 260 360" aria-hidden="true"><use href="#spray-emb"/></svg>
+        <svg class="panel__spray panel__spray--bottom" viewBox="0 0 260 360" aria-hidden="true"><use href="#spray-emb"/></svg>
+        <span class="panel__seam"></span>
+      </div>
+    </div>
+
+    <div class="panel panel--right" aria-hidden="true">
+      <div class="panel__face">
+        <svg class="panel__spray panel__spray--top" viewBox="0 0 260 360" aria-hidden="true"><use href="#spray-emb"/></svg>
+        <svg class="panel__spray panel__spray--mid" viewBox="0 0 260 360" aria-hidden="true"><use href="#spray-emb"/></svg>
+        <svg class="panel__spray panel__spray--bottom" viewBox="0 0 260 360" aria-hidden="true"><use href="#spray-emb"/></svg>
+        <span class="panel__seam"></span>
+      </div>
+    </div>
+
+    <div class="cover__center">
+      <button class="seal" id="openBtn" type="button" aria-label="Open the invitation">
+        <span class="seal__oval">
+          <svg class="seal__art" viewBox="-34 -46 68 92" aria-hidden="true"><use href="#sprig-emb"/></svg>
+        </span>
+        <span class="seal__label" data-c="openLabel">Tap to open</span>
+      </button>
+      <p class="cover__names"><span data-c="brideName">Bride</span> &amp; <span data-c="groomName">Groom</span></p>
+    </div>
+
+  </div>
+</div>
+
+<!-- =========================================================================
+     THE INVITATION
+     ====================================================================== -->
+<main class="invite" id="invite" inert>
+
+  <section class="sheet sheet--hero" id="top">
+    <svg class="corner corner--tl" viewBox="0 0 260 360" aria-hidden="true"><use href="#spray-emb"/></svg>
+    <svg class="corner corner--br" viewBox="0 0 260 360" aria-hidden="true"><use href="#spray-emb"/></svg>
+
+    <div class="hero__inner reveal">
+      <p class="script" data-c="heroKicker">Together with their families</p>
+      <h1 class="names">
+        <span class="names__one" data-c="brideName">Bride</span>
+        <span class="names__amp" aria-hidden="true">&amp;</span>
+        <span class="names__one" data-c="groomName">Groom</span>
+      </h1>
+      <svg class="rule" viewBox="0 0 200 26" aria-hidden="true"><use href="#rule-emb"/></svg>
+      <p class="hero__day" data-c="dayName">Saturday</p>
+      <p class="hero__date" data-c="dateLine">25 August 2026</p>
+      <p class="hero__time" data-c="timeLine">12:30 PM</p>
+      <p class="hero__venue"><span data-c="venueName">Venue Name</span><br><span data-c="cityLine">Puttalam, Sri Lanka</span></p>
+    </div>
+
+    <div class="scroll-hint" aria-hidden="true"><span></span></div>
+  </section>
+
+  <section class="sheet sheet--words">
+    <div class="reveal">
+      <p class="lede" data-c="message">Invitation message.</p>
+      <svg class="rule rule--sm" viewBox="0 0 200 26" aria-hidden="true"><use href="#rule-emb"/></svg>
+    </div>
+
+    <div class="parents reveal">
+      <div class="parents__side">
+        <p class="parents__label" data-c="brideName">Bride</p>
+        <p class="parents__line">daughter of</p>
+        <p class="parents__names" data-c="brideParents">Mr. &amp; Mrs. Name</p>
+      </div>
+      <div class="parents__side">
+        <p class="parents__label" data-c="groomName">Groom</p>
+        <p class="parents__line">son of</p>
+        <p class="parents__names" data-c="groomParents">Mr. &amp; Mrs. Name</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet sheet--photo">
+    <figure class="frame reveal">
+      <div class="frame__mat">
+        <img id="photoMain" src="" alt="" loading="lazy" decoding="async" width="900" height="1200">
+      </div>
+      <figcaption class="script" data-c="photoCaption">the beginning of always</figcaption>
+    </figure>
+  </section>
+
+  <section class="sheet sheet--events">
+    <h2 class="head reveal" data-c="eventsTitle">Order of the day</h2>
+    <div class="events" id="events"></div>
+  </section>
+
+  <section class="sheet sheet--count">
+    <h2 class="head reveal" data-c="countTitle">Counting the days</h2>
+    <div class="count reveal" id="countdown">
+      <div class="count__unit"><span class="count__n" id="cd-d">0</span><span class="count__l">days</span></div>
+      <div class="count__unit"><span class="count__n" id="cd-h">0</span><span class="count__l">hours</span></div>
+      <div class="count__unit"><span class="count__n" id="cd-m">0</span><span class="count__l">minutes</span></div>
+    </div>
+  </section>
+
+  <section class="sheet sheet--venue">
+    <h2 class="head reveal" data-c="venueTitle">Where to find us</h2>
+    <div class="reveal">
+      <p class="venue__name" data-c="venueName">Venue Name</p>
+      <p class="venue__addr" data-c="venueAddress">Street address, Town</p>
+      <a class="btn" id="mapBtn" href="#" target="_blank" rel="noopener">Open in Google Maps</a>
+    </div>
+  </section>
+
+  <section class="sheet sheet--rsvp">
+    <svg class="corner corner--tr" viewBox="0 0 260 360" aria-hidden="true"><use href="#spray-emb"/></svg>
+    <div class="reveal">
+      <h2 class="head" data-c="rsvpTitle">Will you join us?</h2>
+      <p class="rsvp__note" data-c="rsvpNote">Kindly let us know before 10 August 2026.</p>
+      <a class="btn btn--solid" id="rsvpBtn" href="#" target="_blank" rel="noopener">Send my RSVP</a>
+      <a class="btn btn--quiet" id="waBtn" href="#" target="_blank" rel="noopener">Message us on WhatsApp</a>
+    </div>
+    <p class="signoff script reveal" data-c="signoff">With love</p>
+  </section>
+
+</main>
+
+<!-- floating music control, shown only after the card is opened -->
+<button class="music" id="musicBtn" type="button" aria-pressed="false" aria-label="Play background music" hidden>
+  <span class="music__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+</button>
+<audio id="audio" loop preload="none"></audio>
+
+<script src="script.js"></script>
+</body>
+</html>
