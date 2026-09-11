@@ -53,7 +53,7 @@
 
   /* motion */
   --ease: cubic-bezier(.22,.61,.36,1);
-  --open-dur: 1500ms;
+  --open-dur: 2600ms;
 }
 
 /* ---------- 2. base --------------------------------------------------- */
@@ -66,7 +66,7 @@ html,body{
   width:100%;
   max-width:100%;
   overflow-x:hidden;
-  overscroll-behavior-y:none;
+  overflow-x:clip;   /* clip does not turn the page into a scroll container */
 }
 
 body{
@@ -82,7 +82,10 @@ body{
   text-rendering:optimizeLegibility;
 }
 
-body.is-locked{ overflow:hidden; height:100%; position:fixed; inset:0; }
+/* While the card is closed the page is held still. This locks the <html>
+   element only — never position:fixed on <body>, which leaves some mobile
+   browsers unable to scroll again afterwards. */
+html.is-locked, html.is-locked body{ overflow:hidden; height:100%; }
 
 button,a{ touch-action:manipulation; }
 
@@ -111,7 +114,7 @@ img{ max-width:100%; display:block; }
   display:grid; place-items:center;
   padding:0;
   perspective:1500px;
-  transition:opacity 620ms var(--ease), visibility 620ms;
+  transition:opacity 900ms var(--ease), visibility 900ms;
 }
 /* the surface behind the two panels — it fades as they swing open,
    so the invitation is revealed between them */
@@ -121,7 +124,7 @@ img{ max-width:100%; display:block; }
   background:
     radial-gradient(90% 60% at 50% 45%, rgba(255,250,246,.55), transparent 70%),
     var(--paper);
-  transition:opacity 800ms var(--ease);
+  transition:opacity 1800ms var(--ease) 400ms;
 }
 .cover.is-open::before{ opacity:0; }
 .cover.is-gone{ opacity:0; visibility:hidden; pointer-events:none; }
@@ -139,7 +142,7 @@ img{ max-width:100%; display:block; }
   -webkit-backface-visibility:hidden;
   backface-visibility:hidden;
   transform-style:preserve-3d;
-  transition:transform var(--open-dur) var(--ease), filter var(--open-dur) var(--ease);
+  transition:transform var(--open-dur) var(--ease) 320ms, filter var(--open-dur) var(--ease) 320ms;
   will-change:transform;
 }
 .panel--left { left:0;  transform-origin:left center; }
@@ -201,7 +204,7 @@ img{ max-width:100%; display:block; }
   display:flex; flex-direction:column; align-items:center; justify-content:center;
   gap:18px;
   transform:translateZ(1px);
-  transition:opacity 520ms var(--ease), transform 700ms var(--ease);
+  transition:opacity 900ms var(--ease), transform 1500ms var(--ease);
 }
 
 .seal{
@@ -260,7 +263,7 @@ img{ max-width:100%; display:block; }
   width:100%;
   max-width:100%;
   margin:0 auto;
-  transition:opacity 900ms var(--ease);
+  transition:opacity 1600ms var(--ease);
 }
 /* without JavaScript the card never opens, so the invitation stays visible */
 .js .invite{ opacity:0; }
@@ -555,8 +558,13 @@ html:not(.js) .cover{ display:none; }
 @keyframes eq{ 0%,100%{height:4px} 50%{height:14px} }
 
 /* ---------- 7. motion ------------------------------------------------- */
-.reveal{ transition:opacity 900ms var(--ease), transform 900ms var(--ease); }
-.js .reveal:not(.is-in){ opacity:0; transform:translateY(20px); }
+/* Each element can carry its own --d delay, which is what staggers the
+   hero lines in one after another. */
+.reveal{
+  transition:opacity 1500ms var(--ease), transform 1500ms var(--ease);
+  transition-delay:var(--d, 0ms);
+}
+.js .reveal:not(.is-in){ opacity:0; transform:translateY(24px); }
 
 .corner{ transition:transform 1200ms var(--ease); }
 .sheet.is-near .corner--tl{ transform:translate(-4px,3px); }
@@ -570,6 +578,7 @@ html:not(.js) .cover{ display:none; }
     transition-duration:.001ms !important;
   }
   .js .reveal:not(.is-in){ opacity:1; transform:none; }
+  .reveal{ transition-delay:0ms !important; }
   .cover.is-open .panel--left,
   .cover.is-open .panel--right{ transform:none; opacity:0; }
 }
@@ -814,30 +823,30 @@ html:not(.js) .cover{ display:none; }
     <svg class="corner corner--tl" viewBox="0 0 260 360" aria-hidden="true"><use href="#spray-emb"/></svg>
     <svg class="corner corner--br" viewBox="0 0 260 360" aria-hidden="true"><use href="#spray-emb"/></svg>
 
-    <div class="hero__inner reveal">
-      <p class="script" data-c="heroKicker">Together with their families</p>
-      <h1 class="names">
+    <div class="hero__inner">
+      <p class="script reveal" style="--d:150ms" data-c="heroKicker">Together with their families</p>
+      <h1 class="names reveal" style="--d:650ms">
         <span class="names__one" data-c="brideName">Bride</span>
         <span class="names__amp" aria-hidden="true">&amp;</span>
         <span class="names__one" data-c="groomName">Groom</span>
       </h1>
-      <svg class="rule" viewBox="0 0 200 26" aria-hidden="true"><use href="#rule-emb"/></svg>
-      <p class="hero__day" data-c="dayName">Saturday</p>
-      <p class="hero__date" data-c="dateLine">25 August 2026</p>
-      <p class="hero__time" data-c="timeLine">12:30 PM</p>
-      <p class="hero__venue"><span data-c="venueName">Venue Name</span><br><span data-c="cityLine">Puttalam, Sri Lanka</span></p>
+      <svg class="rule reveal" style="--d:1250ms" viewBox="0 0 200 26" aria-hidden="true"><use href="#rule-emb"/></svg>
+      <p class="hero__day reveal" style="--d:1600ms" data-c="dayName">Saturday</p>
+      <p class="hero__date reveal" style="--d:1800ms" data-c="dateLine">25 August 2026</p>
+      <p class="hero__time reveal" style="--d:2000ms" data-c="timeLine">12:30 PM</p>
+      <p class="hero__venue reveal" style="--d:2300ms"><span data-c="venueName">Venue Name</span><br><span data-c="cityLine">Puttalam, Sri Lanka</span></p>
     </div>
 
     <div class="scroll-hint" aria-hidden="true"><span></span></div>
   </section>
 
   <section class="sheet sheet--words">
-    <div class="reveal">
+    <div class="reveal" style="--d:100ms">
       <p class="lede" data-c="message">Invitation message.</p>
       <svg class="rule rule--sm" viewBox="0 0 200 26" aria-hidden="true"><use href="#rule-emb"/></svg>
     </div>
 
-    <div class="parents reveal">
+    <div class="parents reveal" style="--d:450ms">
       <div class="parents__side">
         <p class="parents__label" data-c="brideName">Bride</p>
         <p class="parents__line">daughter of</p>
@@ -852,7 +861,7 @@ html:not(.js) .cover{ display:none; }
   </section>
 
   <section class="sheet sheet--photo">
-    <figure class="frame reveal">
+    <figure class="frame reveal" style="--d:120ms">
       <div class="frame__mat">
         <img id="photoMain" src="" alt="" loading="lazy" decoding="async" width="900" height="1200">
       </div>
@@ -867,7 +876,7 @@ html:not(.js) .cover{ display:none; }
 
   <section class="sheet sheet--count">
     <h2 class="head reveal" data-c="countTitle">Counting the days</h2>
-    <div class="count reveal" id="countdown">
+    <div class="count reveal" style="--d:350ms" id="countdown">
       <div class="count__unit"><span class="count__n" id="cd-d">0</span><span class="count__l">days</span></div>
       <div class="count__unit"><span class="count__n" id="cd-h">0</span><span class="count__l">hours</span></div>
       <div class="count__unit"><span class="count__n" id="cd-m">0</span><span class="count__l">minutes</span></div>
@@ -876,7 +885,7 @@ html:not(.js) .cover{ display:none; }
 
   <section class="sheet sheet--venue">
     <h2 class="head reveal" data-c="venueTitle">Where to find us</h2>
-    <div class="reveal">
+    <div class="reveal" style="--d:350ms">
       <p class="venue__name" data-c="venueName">Venue Name</p>
       <p class="venue__addr" data-c="venueAddress">Street address, Town</p>
       <a class="btn" id="mapBtn" href="#" target="_blank" rel="noopener">Open in Google Maps</a>
@@ -885,13 +894,13 @@ html:not(.js) .cover{ display:none; }
 
   <section class="sheet sheet--rsvp">
     <svg class="corner corner--tr" viewBox="0 0 260 360" aria-hidden="true"><use href="#spray-emb"/></svg>
-    <div class="reveal">
+    <div class="reveal" style="--d:200ms">
       <h2 class="head" data-c="rsvpTitle">Will you join us?</h2>
       <p class="rsvp__note" data-c="rsvpNote">Kindly let us know before 10 August 2026.</p>
       <a class="btn btn--solid" id="rsvpBtn" href="#" target="_blank" rel="noopener">Send my RSVP</a>
       <a class="btn btn--quiet" id="waBtn" href="#" target="_blank" rel="noopener">Message us on WhatsApp</a>
     </div>
-    <p class="signoff script reveal" data-c="signoff">With love</p>
+    <p class="signoff script reveal" style="--d:500ms" data-c="signoff">With love</p>
   </section>
 
 </main>
@@ -982,7 +991,7 @@ const CONFIG = {
      load or throws, the page falls back to a plain, readable invitation
      instead of a card that will not open. */
   document.documentElement.classList.add("js");
-  document.body.classList.add("is-locked");
+  document.documentElement.classList.add("is-locked");
 
   const $  = (s, r) => (r || document).querySelector(s);
   const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
@@ -1017,9 +1026,10 @@ const CONFIG = {
     const wrap = $("#events");
     if (!wrap) return;
     wrap.innerHTML = "";
-    (CONFIG.events || []).forEach(ev => {
+    (CONFIG.events || []).forEach((ev, i) => {
       const box = document.createElement("article");
       box.className = "event reveal";
+      box.style.setProperty("--d", (i * 260) + "ms");
       box.innerHTML =
         '<h3 class="event__name"></h3>' +
         '<p class="event__time"></p>' +
@@ -1070,10 +1080,13 @@ const CONFIG = {
   let opened = false;
 
   function unlockScroll() {
+    document.documentElement.classList.remove("is-locked");
     document.body.classList.remove("is-locked");
-    document.body.style.position = "";
-    document.body.style.overflow = "";
     document.documentElement.style.overflow = "";
+    document.documentElement.style.height = "";
+    document.body.style.overflow = "";
+    document.body.style.position = "";
+    document.body.style.height = "";
   }
 
   function openCard() {
@@ -1081,7 +1094,7 @@ const CONFIG = {
     opened = true;
 
     cover.classList.add("is-open");
-    const wait = reduced ? 0 : 520;
+    const wait = reduced ? 0 : 1100;
 
     setTimeout(() => {
       unlockScroll();
@@ -1097,8 +1110,11 @@ const CONFIG = {
     setTimeout(() => {
       cover.classList.add("is-gone");
       cover.style.display = "none";
+      /* Taken out of the document altogether — an element that is not there
+         cannot swallow a swipe. */
+      if (cover.parentNode) cover.parentNode.removeChild(cover);
       unlockScroll();
-    }, reduced ? 60 : 1650);
+    }, reduced ? 60 : 3200);
   }
 
   const openBtn = $("#openBtn");
@@ -1131,7 +1147,7 @@ const CONFIG = {
       const box = el.getBoundingClientRect();
       if (box.top < window.innerHeight && box.bottom > 0) el.classList.add("is-in");
     });
-    setTimeout(() => $$(".reveal").forEach(el => el.classList.add("is-in")), 2500);
+    setTimeout(() => $$(".reveal").forEach(el => el.classList.add("is-in")), 5000);
 
     const sheets = new IntersectionObserver((entries) => {
       entries.forEach(e => e.target.classList.toggle("is-near", e.isIntersecting));
