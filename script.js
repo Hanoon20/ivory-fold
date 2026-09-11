@@ -164,6 +164,13 @@ const CONFIG = {
   const invite = $("#invite");
   let opened = false;
 
+  function unlockScroll() {
+    document.body.classList.remove("is-locked");
+    document.body.style.position = "";
+    document.body.style.overflow = "";
+    document.documentElement.style.overflow = "";
+  }
+
   function openCard() {
     if (opened) return;
     opened = true;
@@ -172,7 +179,7 @@ const CONFIG = {
     const wait = reduced ? 0 : 520;
 
     setTimeout(() => {
-      document.body.classList.remove("is-locked");
+      unlockScroll();
       window.scrollTo(0, 0);
       invite.removeAttribute("inert");
       invite.classList.add("is-visible");
@@ -180,7 +187,13 @@ const CONFIG = {
       showMusic();
     }, wait);
 
-    setTimeout(() => cover.classList.add("is-gone"), reduced ? 60 : 1650);
+    /* The cover is taken out of the page entirely once it has swung open.
+       visibility:hidden alone can still swallow touches on some phones. */
+    setTimeout(() => {
+      cover.classList.add("is-gone");
+      cover.style.display = "none";
+      unlockScroll();
+    }, reduced ? 60 : 1650);
   }
 
   const openBtn = $("#openBtn");
@@ -203,9 +216,17 @@ const CONFIG = {
       entries.forEach(e => {
         if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }
       });
-    }, { threshold: 0.16, rootMargin: "0px 0px -8% 0px" });
+    }, { threshold: 0.05, rootMargin: "0px 0px -5% 0px" });
 
     $$(".reveal").forEach(el => io.observe(el));
+
+    /* Safety net: whatever is already on screen shows at once, and nothing
+       stays invisible for more than a couple of seconds. */
+    $$(".reveal").forEach(el => {
+      const box = el.getBoundingClientRect();
+      if (box.top < window.innerHeight && box.bottom > 0) el.classList.add("is-in");
+    });
+    setTimeout(() => $$(".reveal").forEach(el => el.classList.add("is-in")), 2500);
 
     const sheets = new IntersectionObserver((entries) => {
       entries.forEach(e => e.target.classList.toggle("is-near", e.isIntersecting));
