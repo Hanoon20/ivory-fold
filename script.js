@@ -72,6 +72,13 @@ const CONFIG = {
 (function () {
   "use strict";
 
+  /* Mark the page as JavaScript-driven and lock scrolling behind the card.
+     These live here, not inline in the HTML, on purpose: if this file fails to
+     load or throws, the page falls back to a plain, readable invitation
+     instead of a card that will not open. */
+  document.documentElement.classList.add("js");
+  document.body.classList.add("is-locked");
+
   const $  = (s, r) => (r || document).querySelector(s);
   const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -231,9 +238,15 @@ const CONFIG = {
   }
 
   /* ---------- 6. go ---------------------------------------------------- */
-  fillText();
-  fillPhoto();
-  fillEvents();
-  fillLinks();
-  countdown();
+  /* Content filling is wrapped so that a typo in CONFIG can never stop the
+     card from opening. Check the browser console if something looks blank. */
+  try {
+    fillText();
+    fillPhoto();
+    fillEvents();
+    fillLinks();
+    countdown();
+  } catch (err) {
+    console.error("Invitation content error:", err);
+  }
 })();
